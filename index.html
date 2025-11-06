@@ -4,8 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Speech to Text Converter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    
+
 </head>
 <body>
-    
+    <div class="container">
+        <h1>Speech to Text</h1>
+        <div id="mic" class="mic">
+            <i class="fa-solid fa-microphone"></i>
+        </div>
+        <span class="tap">Tap to Record</span>
+        <textarea name="text" id="text" placeholder="Your speech will appear here.."></textarea>
+        <button id="download-btn">Download</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
