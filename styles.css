@@ -45,6 +45,11 @@ h1{
     background: #e62e2e;
     transform: scale(1.1);
 }
+.mic.active {
+    background: #4caf50;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+    transform: scale(1.1);
+}
 .tap{
     font-size: 11px;
     
