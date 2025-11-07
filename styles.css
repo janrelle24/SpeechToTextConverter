@@ -117,3 +117,11 @@ textarea:focus {
     transform: scale(0.95);
     opacity: 0.9;
 }
+#statusMessage{
+    color: green;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+}
