@@ -1,5 +1,7 @@
 const microphoneIcon = document.getElementById("mic");
 const textArea = document.getElementById("text");
+const voiceWave = document.getElementById("voice");
+const tapRecord = document.getElementById("tap");
 
 
 //initialize speechrecognition
@@ -21,9 +23,13 @@ function toggleSpeech(){
     }
     if(!isListening){
         recognition.start();
+        voiceWave.style.display = "flex";
+        tapRecord.style.display = "none";
     }
     else{
         recognition.stop();
+        voiceWave.style.display = "none";
+        tapRecord.style.display = "block";
     }
     isListening = !isListening;
 }
