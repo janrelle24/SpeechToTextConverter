@@ -13,6 +13,8 @@ recognition.interimResults = false;
 recognition.lang = "en-US";
 
 let isListening = false;
+let lastSpeechTime = Date.now();
+let pauseTimer;
 
 microphoneIcon.addEventListener("click", toggleSpeech);
 
@@ -35,9 +37,36 @@ function toggleSpeech(){
 }
 //when speech is recognized
 recognition.onresult = function(event){
-    const transcript = event.results[event.results.length - 1][0].transcript;
-    textArea.value += (textArea.value ? " " : "") + transcript;
+    const transcript = event.results[event.results.length - 1][0].transcript.trim();
+    const punctuated = addSmartPunctuation(transcript);
+
+    // Add a space if text already exists
+    textArea.value += (textArea.value ? " " : "") + punctuated;
+    lastSpeechTime = Date.now();
+
+    // reset pause timer
+    clearTimeout(pauseTimer);
+    pauseTimer = setTimeout(insertPausePeriod, 3000);
 };
+function addSmartPunctuation(text){
+    // Capitalize first letter
+    text = text.charAt(0).toUpperCase() + text.slice(1);
+
+    // Add question mark for question-like phrases
+    if (/\b(what|why|how|who|where|when|is|can|do|did|will|are)\b/i.test(text)) {
+        if (!/[?.!]$/.test(text)) text += "?";
+    }
+    else if(!/[.?!]$/.test(text)){
+        text += ".";
+    }
+    return text;
+}
+function insertPausePeriod() {
+    const currentText = textArea.value.trim();
+    if (currentText && !/[.?!]$/.test(currentText)) {
+        textArea.value = currentText + ".";
+    }
+}
 
 //when recognition starts
 recognition.onstart = function(){
@@ -49,6 +78,7 @@ recognition.onend = function(){
     microphoneIcon.classList.remove("active");
     console.log("🛑 Stopped listening.");
     isListening = false;
+    clearTimeout(pauseTimer);
 };
 
 //handle possible errors
